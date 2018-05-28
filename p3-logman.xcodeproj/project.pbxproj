@@ -6,39 +6,154 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DF887C3F20BC74B30094A4BA /* lm.h in Sources */ = {isa = PBXBuildFile; fileRef = DF887C2C20BC749F0094A4BA /* lm.h */; };
+		DF887C4120BC74BB0094A4BA /* project3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF887C2B20BC749F0094A4BA /* project3.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF887C3520BC74A60094A4BA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DF887C2B20BC749F0094A4BA /* project3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = project3.cpp; sourceTree = "<group>"; };
+		DF887C2C20BC749F0094A4BA /* lm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lm.h; sourceTree = "<group>"; };
+		DF887C2D20BC749F0094A4BA /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		DF887C2E20BC749F0094A4BA /* logman */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = logman; sourceTree = "<group>"; };
+		DF887C2F20BC749F0094A4BA /* development.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = development.h; sourceTree = "<group>"; };
+		DF887C3020BC749F0094A4BA /* mpush.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = mpush.sh; sourceTree = "<group>"; };
+		DF887C3120BC749F0094A4BA /* project3.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = project3.o; sourceTree = "<group>"; };
+		DF887C3220BC749F0094A4BA /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		DF887C3720BC74A60094A4BA /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF887C3A20BC74A60094A4BA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		DF887C4220BCA05A0094A4BA /* sample-k-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-k-cmds.txt"; sourceTree = "<group>"; };
+		DF887C4320BCA05A0094A4BA /* sample-k-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-k-out.txt"; sourceTree = "<group>"; };
+		DF887C4420BCA05A0094A4BA /* sample-t-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-t-cmds.txt"; sourceTree = "<group>"; };
+		DF887C4520BCA05A0094A4BA /* sample-b-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-b-out.txt"; sourceTree = "<group>"; };
+		DF887C4620BCA05A0094A4BA /* sample-log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-log.txt"; sourceTree = "<group>"; };
+		DF887C4720BCA05B0094A4BA /* sample-e-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-e-out.txt"; sourceTree = "<group>"; };
+		DF887C4820BCA05B0094A4BA /* sample-d-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-d-cmds.txt"; sourceTree = "<group>"; };
+		DF887C4920BCA05B0094A4BA /* sample-all-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-all-out.txt"; sourceTree = "<group>"; };
+		DF887C4A20BCA05B0094A4BA /* sample-d-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-d-out.txt"; sourceTree = "<group>"; };
+		DF887C4B20BCA05B0094A4BA /* sample-all-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-all-cmds.txt"; sourceTree = "<group>"; };
+		DF887C4C20BCA05B0094A4BA /* README-timing.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "README-timing.txt"; sourceTree = "<group>"; };
+		DF887C4D20BCA05C0094A4BA /* sample-q-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-q-cmds.txt"; sourceTree = "<group>"; };
+		DF887C4E20BCA05C0094A4BA /* sample-t-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-t-out.txt"; sourceTree = "<group>"; };
+		DF887C4F20BCA05C0094A4BA /* sample-q-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-q-out.txt"; sourceTree = "<group>"; };
+		DF887C5020BCA05D0094A4BA /* spec-test-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "spec-test-cmds.txt"; sourceTree = "<group>"; };
+		DF887C5120BCA05D0094A4BA /* spec-test-log.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "spec-test-log.txt"; sourceTree = "<group>"; };
+		DF887C5220BCA05D0094A4BA /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
+		DF887C5320BCA05D0094A4BA /* sample-c-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-c-cmds.txt"; sourceTree = "<group>"; };
+		DF887C5420BCA05E0094A4BA /* spec-test-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "spec-test-out.txt"; sourceTree = "<group>"; };
+		DF887C5520BCA05E0094A4BA /* sample-c-out.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-c-out.txt"; sourceTree = "<group>"; };
+		DF887C5620BCA05E0094A4BA /* sample-e-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-e-cmds.txt"; sourceTree = "<group>"; };
+		DF887C5720BCA05E0094A4BA /* sample-b-cmds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-b-cmds.txt"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DF887C3420BC74A60094A4BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		DF887C2020B8A2040094A4BA = {
 			isa = PBXGroup;
 			children = (
+				DF887C2F20BC749F0094A4BA /* development.h */,
+				DF887C2C20BC749F0094A4BA /* lm.h */,
+				DF887C2E20BC749F0094A4BA /* logman */,
+				DF887C2D20BC749F0094A4BA /* Makefile */,
+				DF887C3020BC749F0094A4BA /* mpush.sh */,
+				DF887C2B20BC749F0094A4BA /* project3.cpp */,
+				DF887C4C20BCA05B0094A4BA /* README-timing.txt */,
+				DF887C4B20BCA05B0094A4BA /* sample-all-cmds.txt */,
+				DF887C4920BCA05B0094A4BA /* sample-all-out.txt */,
+				DF887C5720BCA05E0094A4BA /* sample-b-cmds.txt */,
+				DF887C4520BCA05A0094A4BA /* sample-b-out.txt */,
+				DF887C5320BCA05D0094A4BA /* sample-c-cmds.txt */,
+				DF887C5520BCA05E0094A4BA /* sample-c-out.txt */,
+				DF887C4820BCA05B0094A4BA /* sample-d-cmds.txt */,
+				DF887C4A20BCA05B0094A4BA /* sample-d-out.txt */,
+				DF887C5620BCA05E0094A4BA /* sample-e-cmds.txt */,
+				DF887C4720BCA05B0094A4BA /* sample-e-out.txt */,
+				DF887C4220BCA05A0094A4BA /* sample-k-cmds.txt */,
+				DF887C4320BCA05A0094A4BA /* sample-k-out.txt */,
+				DF887C4620BCA05A0094A4BA /* sample-log.txt */,
+				DF887C4D20BCA05C0094A4BA /* sample-q-cmds.txt */,
+				DF887C4F20BCA05C0094A4BA /* sample-q-out.txt */,
+				DF887C4420BCA05A0094A4BA /* sample-t-cmds.txt */,
+				DF887C4E20BCA05C0094A4BA /* sample-t-out.txt */,
+				DF887C5020BCA05D0094A4BA /* spec-test-cmds.txt */,
+				DF887C5120BCA05D0094A4BA /* spec-test-log.txt */,
+				DF887C5420BCA05E0094A4BA /* spec-test-out.txt */,
+				DF887C5220BCA05D0094A4BA /* test */,
+				DF887C3120BC749F0094A4BA /* project3.o */,
+				DF887C3220BC749F0094A4BA /* readme.md */,
+				DF887C3920BC74A60094A4BA /* test */,
+				DF887C3820BC74A60094A4BA /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		DF887C3820BC74A60094A4BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DF887C3720BC74A60094A4BA /* test */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DF887C3920BC74A60094A4BA /* test */ = {
+			isa = PBXGroup;
+			children = (
+				DF887C3A20BC74A60094A4BA /* main.swift */,
+			);
+			path = test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXLegacyTarget section */
-		DF887C2520B8A2040094A4BA /* p3-logman */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = DF887C2820B8A2040094A4BA /* Build configuration list for PBXLegacyTarget "p3-logman" */;
+/* Begin PBXNativeTarget section */
+		DF887C3620BC74A60094A4BA /* test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF887C3C20BC74A60094A4BA /* Build configuration list for PBXNativeTarget "test" */;
 			buildPhases = (
+				DF887C3320BC74A60094A4BA /* Sources */,
+				DF887C3420BC74A60094A4BA /* Frameworks */,
+				DF887C3520BC74A60094A4BA /* CopyFiles */,
 			);
-			buildToolPath = /usr/bin/make;
+			buildRules = (
+			);
 			dependencies = (
 			);
-			name = "p3-logman";
-			passBuildSettingsInEnvironment = 1;
-			productName = "p3-logman";
+			name = test;
+			productName = test;
+			productReference = DF887C3720BC74A60094A4BA /* test */;
+			productType = "com.apple.product-type.tool";
 		};
-/* End PBXLegacyTarget section */
+/* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		DF887C2120B8A2040094A4BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Jeff Guan";
 				TargetAttributes = {
-					DF887C2520B8A2040094A4BA = {
+					DF887C3620BC74A60094A4BA = {
 						CreatedOnToolsVersion = 9.3.1;
 					};
 				};
@@ -51,13 +166,26 @@
 				en,
 			);
 			mainGroup = DF887C2020B8A2040094A4BA;
+			productRefGroup = DF887C3820BC74A60094A4BA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DF887C2520B8A2040094A4BA /* p3-logman */,
+				DF887C3620BC74A60094A4BA /* test */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DF887C3320BC74A60094A4BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF887C4120BC74BB0094A4BA /* project3.cpp in Sources */,
+				DF887C3F20BC74B30094A4BA /* lm.h in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		DF887C2620B8A2040094A4BA /* Debug */ = {
@@ -163,28 +291,31 @@
 			};
 			name = Release;
 		};
-		DF887C2920B8A2040094A4BA /* Debug */ = {
+		DF887C3D20BC74A60094A4BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
-		DF887C2A20B8A2040094A4BA /* Release */ = {
+		DF887C3E20BC74A60094A4BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -200,11 +331,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF887C2820B8A2040094A4BA /* Build configuration list for PBXLegacyTarget "p3-logman" */ = {
+		DF887C3C20BC74A60094A4BA /* Build configuration list for PBXNativeTarget "test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DF887C2920B8A2040094A4BA /* Debug */,
-				DF887C2A20B8A2040094A4BA /* Release */,
+				DF887C3D20BC74A60094A4BA /* Debug */,
+				DF887C3E20BC74A60094A4BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
