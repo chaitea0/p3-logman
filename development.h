@@ -9,3 +9,7 @@ test writing
 3. same keywords
 4. keyword in the category only
 5. find last
+6. double timestamp
+7. very close timestamps
+8. out of range for a,b,d,e
+9. invalid command

@@ -1,0 +1,41 @@
+18 entries read
+% % log entry 0 appended
+% log entry 1 appended
+% log entry 2 appended
+% log entry 3 appended
+% log entry 4 appended
+% log entry 5 appended
+% log entry 6 appended
+% log entry 7 appended
+% log entry 8 appended
+% log entry 0 appended
+% % % 0|0|12:11:20:12:12|TCP|Bad packet received (CID #8432)
+1|1|12:15:20:56:23|UI-PANE1|Window received focus.
+2|2|04:25:21:54:22|Thread|Suspending CPU 3
+3|3|12:14:15:23:12|TCP|Bad packet received (CID #12353)
+4|4|06:02:11:20:08|DB Mgr|Sending query: "SELECT * FROM users"
+5|5|01:07:08:12:00|UI-PANE2|Window received focus.
+6|6|04:25:21:54:21|Thread|Thread #12 blocking on join call to thread #4
+7|7|09:29:23:41:20|DB Mgr|Query results received ("SELECT * FROM users")
+8|8|12:15:20:56:50|UI-PANE1|Click event served.
+9|0|12:11:20:12:12|TCP|Bad packet received (CID #8432)
+% excerpt list sorted
+previous ordering:
+0|0|12:11:20:12:12|TCP|Bad packet received (CID #8432)
+...
+9|0|12:11:20:12:12|TCP|Bad packet received (CID #8432)
+new ordering:
+0|5|01:07:08:12:00|UI-PANE2|Window received focus.
+...
+9|8|12:15:20:56:50|UI-PANE1|Click event served.
+% 0|5|01:07:08:12:00|UI-PANE2|Window received focus.
+1|6|04:25:21:54:21|Thread|Thread #12 blocking on join call to thread #4
+2|2|04:25:21:54:22|Thread|Suspending CPU 3
+3|4|06:02:11:20:08|DB Mgr|Sending query: "SELECT * FROM users"
+4|7|09:29:23:41:20|DB Mgr|Query results received ("SELECT * FROM users")
+5|0|12:11:20:12:12|TCP|Bad packet received (CID #8432)
+6|0|12:11:20:12:12|TCP|Bad packet received (CID #8432)
+7|3|12:14:15:23:12|TCP|Bad packet received (CID #12353)
+8|1|12:15:20:56:23|UI-PANE1|Window received focus.
+9|8|12:15:20:56:50|UI-PANE1|Click event served.
+% 

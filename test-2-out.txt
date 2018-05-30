@@ -1,0 +1,62 @@
+20 entries read
+% excerpt list sorted
+(previously empty)
+% excerpt list cleared
+(previously empty)
+% Timestamp search: 0 entries found
+% % Category search: 3 entries found
+% 15|08:23:12:03:15|TCP|Connection to client lost. (CID #8432)
+0|12:11:20:12:12|TCP|asdfasdlfokapowekfpaoskpsokadpoek
+3|12:14:15:23:12|TCP|Bad packet received (CID #12353)
+% Category search: 9 entries found
+% 9|04:25:21:53:21|Thread|Thread #4 acquired lock #3
+6|04:25:21:54:21|Thread|Thread #12 blocking on join call to thread #4
+2|04:25:21:54:22|Thread|skdfiowjeif asdfijw asdfijiwe asdf
+12|04:25:21:55:36|Thread|Thread #4 closing.
+13|04:25:21:55:36|Thread|Interrupt event on CPU 3
+14|04:25:21:55:37|Thread|Thread #12 joined on thread #4
+17|04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+18|04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+19|04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+% Keyword search: 0 entries found
+% log entry 0 appended
+% Timestamps search: 20 entries found
+% 20 log entries appended
+% Deleted excerpt list entry 0
+% Moved excerpt list entry 1
+% Moved excerpt list entry 1
+% excerpt list sorted
+previous ordering:
+0|9|04:25:21:53:21|Thread|Thread #4 acquired lock #3
+...
+19|16|01:23:10:03:00|ALRM|Alarm event raised by process (PID #5432)
+new ordering:
+0|5|01:07:08:12:00|((((((|Window received focus.
+...
+19|8|12:15:20:56:50|UI-PANE1|Click event served.
+% 0|5|01:07:08:12:00|((((((|Window received focus.
+1|16|01:23:10:03:00|ALRM|Alarm event raised by process (PID #5432)
+2|9|04:25:21:53:21|Thread|Thread #4 acquired lock #3
+3|6|04:25:21:54:21|Thread|Thread #12 blocking on join call to thread #4
+4|2|04:25:21:54:22|Thread|skdfiowjeif asdfijw asdfijiwe asdf
+5|12|04:25:21:55:36|Thread|Thread #4 closing.
+6|13|04:25:21:55:36|Thread|Interrupt event on CPU 3
+7|14|04:25:21:55:37|Thread|Thread #12 joined on thread #4
+8|17|04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+9|18|04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+10|19|04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+11|4|06:02:11:20:08|DB Mgr|Sending query: "SELECT * FROM users"
+12|10|07:02:10:12:43|PGM|Beginning master election.
+13|11|07:02:10:13:00|PGM|Finished master election (master hostname=CAEN1695-p14).
+14|15|08:23:12:03:15|TCP|Connection to client lost. (CID #8432)
+15|7|09:29:23:41:20|DB Mgr|Query results received ("SELECT * FROM users")
+16|0|12:11:20:12:12|TCP|asdfasdlfokapowekfpaoskpsokadpoek
+17|3|12:14:15:23:12|TCP|Bad packet received (CID #12353)
+18|1|12:15:20:56:23|UI-PANE1|sdf wef asd we f q wef sdf 
+19|8|12:15:20:56:50|UI-PANE1|Click event served.
+% excerpt list cleared
+previous contents:
+0|5|01:07:08:12:00|((((((|Window received focus.
+...
+19|8|12:15:20:56:50|UI-PANE1|Click event served.
+% 

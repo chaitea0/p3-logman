@@ -1,4 +1,4 @@
-# This is the Spec Test!
+# This is the Spec Test!/Users/chaitea/Desktop/p3-logman/spec-test-cmds.txt
 c db mgr
 a 10
 p

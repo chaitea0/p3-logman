@@ -72,7 +72,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "sample-log.txt"
+            argument = "spec-test-log.txt"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

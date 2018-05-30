@@ -1,18 +1,14 @@
-#test move to beginning/end and clear list
-t 00:00:00:00:00|99:99:99:99:99
-r
-b 0
-p
-b 17
-p
-b 4
-p
-e 0
-p
-e 17
-p
-e 4
-p
-s
-p
+#more category tests and random shit
+c UI-PANE1
+g
+c ui pane1
+g
+c ui-pane1
+g
+c ui.pane1
+g
+c thrEad
+g
+k ui pane
+g
 q

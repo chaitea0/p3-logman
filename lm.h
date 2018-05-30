@@ -112,7 +112,7 @@ public:
 			if(temp.empty())
 				temp.push_back((int)entryID);
 			else if(temp.back() != entryID)
-				temp.push_back((int)entryID);
+				temp.push_back((int)entryID);    
 		}
 
 	}
@@ -133,34 +133,34 @@ public:
 
 	}
 	void calculation(){
-		string input;
-		while(true){
+		char input;
+		while(cin >> input){
 			cout << "% ";
-			char input;
-            cin >> input;
 			switch (input) {
 				//timestamps search
 		        case 't':{
 		        	search_list.erase(begin(search_list), end(search_list));
 		            searched = true;
-					string ts;
-			        getline(cin, ts, ' ');
-					getline(cin,ts, '|');
-					if (ts.length() != 14)
+					string ts1;
+                    string ts2;
+			        getline(cin, ts1, ' ');
+					getline(cin,ts1, '|');
+                    getline(cin,ts2);
+					if (ts1.length() != 14 || ts2.length() != 14)
 						cerr << "Invalid timestamps\n";
-					int64_t tstmp1 = tsc_stl(ts);
-					getline(cin,ts);
-					if (ts.length() != 14)
-						cerr << "Invalid timestamps\n";
-					int64_t tstmp2 = tsc_stl(ts);
-					//Find lower bound of timestamps
-					masterlist[masterlist.size()-1] = tstmp1-1;
-					auto it = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
-					//while between range add
-					while(masterlist[(size_t)*it].ts <= tstmp2)
-						search_list.push_back(*it++);
-					cout << "Timestamps search: " << search_list.size() << " entries found\n";
-					            break;
+                    else{
+                        int64_t tstmp1 = tsc_stl(ts1);
+                        int64_t tstmp2 = tsc_stl(ts2);
+                        //Find lower bound of timestamps
+                        masterlist[masterlist.size()-1] = tstmp1-1;
+                        auto it1 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
+                        masterlist[masterlist.size()-1] = tstmp2;
+                        auto it2 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
+                        //while between range add
+                        search_list.insert(end(search_list), it1, it2);
+                        cout << "Timestamps search: " << search_list.size() << " entries found\n";
+                    }
+                        break;
 		        }
 		        //matching search(1 ts)
 		        case 'm':{
@@ -169,18 +169,20 @@ public:
 					string ts;
 			        getline(cin, ts, ' ');
 					getline(cin,ts);
-			        
-					int64_t tstmp1 = tsc_stl(ts);
-					//Find lower bound of timestamps
-					masterlist[masterlist.size()-1] = tstmp1-1;
-					auto it = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
-					//Add all equal timestamps
-					while(masterlist[(size_t)*it].ts == tstmp1){
-						search_list.push_back(*it++);
-			            if (it == end(ts_sort))
-			                break;
-			        }
-					cout << "Timestamp search: " << search_list.size() << " entries found\n";
+			        if(ts.length() != 14){
+                        cerr << "Invalid timestamp length\n";
+                    }
+                    else{
+                        int64_t tstmp1 = tsc_stl(ts);
+                        //Find lower bound of timestamps
+                        masterlist[masterlist.size()-1] = tstmp1-1;
+                        auto it1 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
+                        masterlist[masterlist.size()-1] = tstmp1;
+                        auto it2 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
+                        //Add all equal timestamps
+                        search_list.insert(end(search_list), it1, it2);
+                        cout << "Timestamp search: " << search_list.size() << " entries found\n";
+                    }
 		            break;
 		        }
 		        //category serach
@@ -213,7 +215,8 @@ public:
 					auto it = mes_hash.find(kws[0]);
 					if (it != end(mes_hash))
 						search_list.insert(end(search_list), begin(it->second), end(it->second));
-					
+                    vector<int> temp1 = {1,2,3};
+                    vector<int> temp2 = {};
 					for(size_t i = 1; i < kws.size(); i++){
 						if (search_list.empty())
 							break;
@@ -223,8 +226,10 @@ public:
 							auto insec = set_intersection(begin(search_list), end(search_list), begin(it->second), end(it->second), begin(search_list), index_func);
                             search_list.erase(insec, end(search_list));
                         }
-						else
+						else{
+                            search_list.erase(begin(search_list), end(search_list));
 							break;
+                        }
 					}
                     
 					cout << "Keyword search: " << search_list.size() << " entries found\n";
@@ -234,12 +239,12 @@ public:
 		        case 'a':{
 		        	int num;
 					cin >> num;
-					if(num >= (int)masterlist.size()-2){
+					if(num > (int)masterlist.size()-2)
 						cerr << "Invalid append, out of range\n";
-						return;
-					}
-					ex_list.push_back(num);
-					cout << "log entry " << num << " appended\n";
+                    else{
+                        ex_list.push_back(num);
+                        cout << "log entry " << num << " appended\n";
+                    }
 		            break;
 		        }
 		        //append search entries
@@ -256,41 +261,39 @@ public:
 		        case 'd':{
 		        	int num;
 					cin >> num;
-					if(num >= (int)ex_list.size()){
+					if(num >= (int)ex_list.size())
 						cerr << "Invalid excerpt list delete, out of range\n";
-						return;
-					}
-					auto it = begin(ex_list) + num;
-					ex_list.erase(it);
-
-					//delete excerpt list entry
-					cout << "Deleted excerpt list entry " << num << "\n";
+                    else{
+                        auto it = begin(ex_list) + num;
+                        ex_list.erase(it);
+                        cout << "Deleted excerpt list entry " << num << "\n";
+                    }
 		            break;
 		        }
 		        //move to beginning
 		        case 'b':{
 		        	int num;
 					cin >> num;
-					if(num >= (int)ex_list.size()){
+					if(num >= (int)ex_list.size())
 						cerr << "Invalid excerpt list move to beginning, out of range\n";
-						return;
-					}
-					auto it = begin(ex_list)+num;
-					rotate(begin(ex_list), it, it + 1);
-					cout << "Moved excerpt list entry " << num << "\n";
+                    else{
+                        auto it = ex_list.rend()-num-1;
+                        rotate(it, it+1, ex_list.rend());
+                        cout << "Moved excerpt list entry " << num << "\n";
+                    }
 		            break;
 		        }
 		        //move to end
 		        case 'e':{
 		        	int num;
 					cin >> num;
-					if(num >= (int)ex_list.size()){
+					if(num >= (int)ex_list.size())
 						cerr << "Invalid excerpt list move to end, out of range\n";
-						return;
-					}
-					auto it = begin(ex_list)+num;
-					rotate(it, it + 1, ex_list.end());
-					cout << "Moved excerpt list entry " << num << "\n";
+                    else{
+                        auto it = begin(ex_list)+num;
+                        rotate(it, it + 1, ex_list.end());
+                        cout << "Moved excerpt list entry " << num << "\n";
+                    }
 		            break;
 		        }
 		        //sort excerpt list
@@ -339,8 +342,10 @@ public:
 		        case 'g':{
 		        	if (!searched)
 			            cerr << "No previous search\n";
-					for(unsigned int i = 0; i < search_list.size(); i++)
-						print_logf((size_t)search_list[i]);
+                    else{
+                        for(unsigned int i = 0; i < search_list.size(); i++)
+                            print_logf((size_t)search_list[i]);
+                    }
 		            break;
 		        }
 		        //print excerpt list
@@ -361,8 +366,11 @@ public:
 		        	getline(cin, trash); 
 		            break;
 		        }
-		        default:
-		        	cerr << "Invalid Command\n";
+		        default:{
+                    cerr << "Invalid Command\n";
+                    string trash;
+                    getline(cin, trash);
+                }
 		    }
 
 		}
