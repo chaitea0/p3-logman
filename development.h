@@ -1,22 +1,11 @@
-Read in all logs
-https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
-
-void error_check(){
-	int user_input
-	cin 
-}
-
-split keyword string into separate strings
-
-void kw_split(){
-	
-}
-
-
-excerpt list stores an index?
+todo resize vector correcty
+do you need an entry ID
 reserve to size for master list
-error handling
-
-options
-
 functor writing to sort logs, lambdas?
+
+test writing
+1. test conversions
+2. all error testing
+3. same keywords
+4. keyword in the category only
+5. find last

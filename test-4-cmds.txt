@@ -1,0 +1,20 @@
+#test cat and keywords
+c DB MGR
+g
+c db mgr
+g
+c asdf
+c dbmgr
+k ALRM,Alarm,event,raised
+g
+k TCP
+g
+k Thread,#4
+g
+k Thread Thread #10 attempted to grab lock #3 held by thread #4
+g
+k #3
+g
+k (CID #8432)
+g
+q

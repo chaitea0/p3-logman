@@ -1,9 +1,9 @@
-12:11:20:12:12|TCP|Bad packet received (CID #8432)
-12:15:20:56:23|UI-PANE1|Window received focus.
-04:25:21:54:22|Thread|Suspending CPU 3
+12:11:20:12:12|TCP|asdfasdlfokapowekfpaoskpsokadpoek
+12:15:20:56:23|UI-PANE1|sdf wef asd we f q wef sdf 
+04:25:21:54:22|Thread|skdfiowjeif asdfijw asdfijiwe asdf
 12:14:15:23:12|TCP|Bad packet received (CID #12353)
 06:02:11:20:08|DB Mgr|Sending query: "SELECT * FROM users"
-01:07:08:12:00|UI-PANE2|Window received focus.
+01:07:08:12:00|((((((|Window received focus.
 04:25:21:54:21|Thread|Thread #12 blocking on join call to thread #4
 09:29:23:41:20|DB Mgr|Query results received ("SELECT * FROM users")
 12:15:20:56:50|UI-PANE1|Click event served.
@@ -15,4 +15,6 @@
 04:25:21:55:37|Thread|Thread #12 joined on thread #4
 08:23:12:03:15|TCP|Connection to client lost. (CID #8432)
 01:23:10:03:00|ALRM|Alarm event raised by process (PID #5432)
+04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4
 04:25:21:55:50|Thread|Thread #10 attempted to grab lock #3 held by thread #4

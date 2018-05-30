@@ -3,6 +3,7 @@
 #include <vector>
 #include <queue>
 #include <fstream>
+#include <cstring>
 
 #include "lm.h"
 using namespace std;
@@ -11,8 +12,8 @@ int main(int argc, char* argv[]){
 	//std::ios_base::sync_with_stdio(false);
 
 	#ifdef __APPLE__
-	    //freopen("normal-small-M-in.txt", "r", stdin);
-	    //freopen("normal-large-M-out.txt", "w", stdout);
+	    freopen("sample-all-cmds.txt", "r", stdin);
+	    freopen("tout", "w", stdout);
 	#endif
 
 	if(argc != 2 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0){
