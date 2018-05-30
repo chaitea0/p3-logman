@@ -42,7 +42,7 @@ public:
 	vector<int> ts_sort;
 	i_func index_func;
     bool searched;
-	//https://stackoverflow.com/questions/3072795/how-to-count-lines-of-a-file-in-c
+	
 	lm():index_func(masterlist), searched(false){}
 
 	void load_logfile(ifstream& logstream){
@@ -102,10 +102,7 @@ public:
 		keyword_breakup(cat_words, category);
 		for(size_t i = 0; i < keywords.size(); i++){
 			vector<int> &temp = mes_hash[keywords[i]];
-			if(temp.empty())
-				temp.push_back((int)entryID);
-			else if(temp.back() != entryID)
-				temp.push_back((int)entryID);
+            temp.push_back((int)entryID);
         }
 		for(size_t i = 0; i < cat_words.size(); i++){
 			vector<int> &temp = mes_hash[cat_words[i]];
