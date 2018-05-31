@@ -27,7 +27,7 @@ struct lfile_comp{
 			if (one.cat == two.cat)
 				return one.entryID < two.entryID;
 			else 
-				return strcasecmp(one.cat.c_str(),two.cat.c_str());
+				return strcasecmp(one.cat.c_str(),two.cat.c_str()) < -1;
 		}
 		else 
 			return ts_list[one.entryID] < ts_list[two.entryID];
@@ -98,16 +98,14 @@ public:
 		return temp;
 	}
 	// Loads keywords into category and message hashmaps
-	void hash_map_load(string &category, string &message, uint32_t index){
-        string low_cat = category;
-        transform(begin(low_cat), end(low_cat), begin(low_cat), ::tolower);
-		cat_hash[low_cat].push_back(index);
-		//Load all words into message map
+	void hash_map_load(string category, string message, uint32_t index){
+		//Get all keywords
 		vector<string> keywords;
 		keyword_breakup(keywords, message);
 		vector<string> cat_words;
 		keyword_breakup(cat_words, category);
 		
+        cat_hash[category].push_back(index);
 		for(size_t i = 0; i < keywords.size(); i++){
 			vector<uint32_t> &temp = mes_hash[keywords[i]];
 			if(temp.empty())
@@ -129,12 +127,11 @@ public:
 		auto lead = lag;
         auto last = end(input);
 		while(lag != last){
-			while(lead != last && isalnum(*lead))
-				lead++;
-			
-			string kw = string(lag, lead);
-			transform(begin(kw), end(kw), begin(kw), ::tolower);
-			keywords.push_back(kw);
+			while(lead != last && isalnum(*lead)){
+                *lead = (char)tolower(*lead);
+                lead++;
+            }
+			keywords.emplace_back(lag,lead);
 
 			lag = find_if(lead,last, ::isalnum);
 			lead = lag;

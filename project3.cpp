@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char* argv[]){
 	std::ios_base::sync_with_stdio(false);
 	#ifdef __APPLE__
-	    freopen("sample-all-cmds.txt", "r", stdin);
+	    freopen("test-5-cmds.txt", "r", stdin);
 	    freopen("tout", "w", stdout);
 	#endif
 
