@@ -15,4 +15,4 @@
 00:00:00:00:00|Thread|Thread #12 joined on thread #4
 00:00:00:00:00|TCP|Connection to client lost. (CID #8432)
 00:00:00:00:00|ALRM|Alarm event raised by process (PID #5432)
-00:00:00:00:00|Thread|Thread #10 attempted to grab lock #3 held by thread #4
+00:00:00:00:01|Thread|Thread #10 attempted to grab lock #3 held by thread #4

@@ -1,5 +1,12 @@
+k eecs 281
+c eecs 281
 k eecs281
+c eecs281
 g
 k thread asdfas
+g
+k thread thread thread;
+g
+c thread thread
 g
 q

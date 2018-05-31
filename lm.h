@@ -13,66 +13,74 @@ using namespace std;
 
 //Struct to store individual log file info
 struct lfile{
-	lfile(int64_t ts_in):message(""), cat(""), ts(ts_in){}
-	lfile(string &mes_in, string &cat_in, int64_t ts_in):
-	message(mes_in), cat(cat_in), ts(ts_in){}
+	lfile(string &mes_in, string &cat_in, uint32_t id_in):
+	message(mes_in), cat(cat_in), entryID(id_in){}
 	
 	string message;
 	string cat;
-	int64_t ts;
+	uint32_t entryID;
 };
-//timestamp comparator
-struct i_func{
-	i_func(vector<lfile>& in):masterlist(in){}
-	bool operator()(unsigned int ind1, unsigned ind2){
-		const lfile& one = masterlist[ind1];
-		const lfile& two = masterlist[ind2];
-		return (one.ts == two.ts) ? ( (one.cat == two.cat) ? ind1 < ind2 : strcasecmp(one.cat.c_str(),two.cat.c_str())) : one.ts < two.ts;
+struct lfile_comp{
+	lfile_comp(vector<int64_t>& in):ts_list(in){}
+	bool operator()(const lfile& one, const lfile& two){
+		if (ts_list[one.entryID] == ts_list[two.entryID]){
+			if (one.cat == two.cat)
+				return one.entryID < two.entryID;
+			else 
+				return strcasecmp(one.cat.c_str(),two.cat.c_str());
+		}
+		else 
+			return ts_list[one.entryID] < ts_list[two.entryID];
 	}
-	vector<lfile> &masterlist;
+	vector<int64_t> &ts_list;
 };
 
 class lm{
 public:
-	unordered_map<string, vector<int>> cat_hash;
-	unordered_map<string, vector<int>> mes_hash;
+	unordered_map<string, vector<uint32_t>> cat_hash;
+	unordered_map<string, vector<uint32_t>> mes_hash;
 	vector<lfile> masterlist;
-	vector<int> ex_list;
-	vector<int> search_list;
-	vector<int> ts_sort;
-	i_func index_func;
+	vector<uint32_t> ex_list;
+	vector<uint32_t> search_list;
+	vector<int64_t> ts_list;
+	vector<uint32_t> index_list;
+	lfile_comp ml_func;
     bool searched;
-	
-	lm():index_func(masterlist), searched(false){}
+    
+	lm():ml_func(ts_list), searched(false){}
 
 	void load_logfile(ifstream& logstream){
-		int32_t entryID = 0;
-		//reserve to correct size?
 		string get_ts;
+		string category;
+		string message;
+		uint32_t entryID = 0;
+		int64_t timestamp;
+
 		while(getline(logstream, get_ts, '|')){
-			int64_t timestamp = tsc_stl(get_ts);
-			string category;
 			getline(logstream, category, '|');
-			string message;
 			getline(logstream, message);
-			//Insert into masterlist
-			masterlist.emplace_back(message, category, timestamp);
+
+			timestamp = tsc_stl(get_ts);
+			ts_list.push_back(timestamp);
+			
+			masterlist.emplace_back(message, category, entryID);
 			entryID++;
 		}
-		
-		ts_sort.resize(masterlist.size());
-		iota(begin(ts_sort), end(ts_sort), 0);
-		sort(begin(ts_sort), end(ts_sort), index_func);
+
+		sort(begin(masterlist), end(masterlist), ml_func);
+		sort(begin(ts_list), end(ts_list));
+
+		index_list.resize(masterlist.size());
+		for(uint32_t i = 0; i < masterlist.size(); i++)
+			index_list[masterlist[i].entryID] =  i;
 
 		//Load words into unordered map
-		for(size_t i = 0; i < ts_sort.size(); i++){
-			lfile &temp = masterlist[(size_t)ts_sort[i]];
-			hash_map_load(temp.cat, temp.message, ts_sort[i]);
+		for(uint32_t i = 0; i < masterlist.size(); i++){
+			lfile &temp = masterlist[i];
+			hash_map_load(temp.cat, temp.message, i);
 		}
 		
 		cout << masterlist.size() << " entries read\n";
-		//Last element used for sorting
-		masterlist.emplace_back(0);
 	}
 	//Conversts a timestamp string to long form
 	int64_t tsc_stl(const string &timestamp){
@@ -90,41 +98,45 @@ public:
 		return temp;
 	}
 	// Loads keywords into category and message hashmaps
-	void hash_map_load(string &category, string &message, int32_t entryID){
-		//Load into category map
+	void hash_map_load(string &category, string &message, uint32_t index){
         string low_cat = category;
         transform(begin(low_cat), end(low_cat), begin(low_cat), ::tolower);
-		cat_hash[low_cat].push_back((int)entryID);
+		cat_hash[low_cat].push_back(index);
 		//Load all words into message map
 		vector<string> keywords;
 		keyword_breakup(keywords, message);
 		vector<string> cat_words;
 		keyword_breakup(cat_words, category);
+		
 		for(size_t i = 0; i < keywords.size(); i++){
-			vector<int> &temp = mes_hash[keywords[i]];
-            temp.push_back((int)entryID);
+			vector<uint32_t> &temp = mes_hash[keywords[i]];
+			if(temp.empty())
+				temp.push_back(index);
+			else if(temp.back() != index)
+				temp.push_back(index);
         }
 		for(size_t i = 0; i < cat_words.size(); i++){
-			vector<int> &temp = mes_hash[cat_words[i]];
+			vector<uint32_t> &temp = mes_hash[cat_words[i]];
 			if(temp.empty())
-				temp.push_back((int)entryID);
-			else if(temp.back() != entryID)
-				temp.push_back((int)entryID);    
+				temp.push_back(index);
+			else if(temp.back() != index)
+				temp.push_back(index);
 		}
 
 	}
 	void keyword_breakup(vector<string> &keywords, string& input){
 		auto lag = find_if(begin(input),end(input), ::isalnum);
 		auto lead = lag;
-		while(lag != end(input)){
-			while(lead != end(input) && isalnum(*lead))
+        auto last = end(input);
+		while(lag != last){
+			while(lead != last && isalnum(*lead))
 				lead++;
 			
 			string kw = string(lag, lead);
 			transform(begin(kw), end(kw), begin(kw), ::tolower);
 			keywords.push_back(kw);
 
-			lag = find_if(lead,end(input), ::isalnum);
+			lag = find_if(lead,last, ::isalnum);
 			lead = lag;
 		}
 
@@ -149,15 +161,18 @@ public:
                         int64_t tstmp1 = tsc_stl(ts1);
                         int64_t tstmp2 = tsc_stl(ts2);
                         //Find lower bound of timestamps
-                        masterlist[masterlist.size()-1] = tstmp1-1;
-                        auto it1 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
-                        masterlist[masterlist.size()-1] = tstmp2;
-                        auto it2 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
+                        auto first = begin(ts_list);
+                        auto last = end(ts_list);
+                        auto it1 = lower_bound(first, last, tstmp1);
+                        auto it2 = upper_bound(first, last, tstmp2);
                         //while between range add
-                        search_list.insert(end(search_list), it1, it2);
+                        while(it1!=it2){
+                        	search_list.push_back((uint32_t)(it1-first));
+                        	it1++;
+                        }
                         cout << "Timestamps search: " << search_list.size() << " entries found\n";
                     }
-                        break;
+                    break;
 		        }
 		        //matching search(1 ts)
 		        case 'm':{
@@ -172,12 +187,15 @@ public:
                     else{
                         int64_t tstmp1 = tsc_stl(ts);
                         //Find lower bound of timestamps
-                        masterlist[masterlist.size()-1] = tstmp1-1;
-                        auto it1 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
-                        masterlist[masterlist.size()-1] = tstmp1;
-                        auto it2 = lower_bound(begin(ts_sort), end(ts_sort), masterlist.size()-1, index_func);
+                        auto first = begin(ts_list);
+                        auto last = end(ts_list);
+                        auto it1 = lower_bound(first, last, tstmp1);
+                        auto it2 = upper_bound(first, last, tstmp1);
                         //Add all equal timestamps
-                        search_list.insert(end(search_list), it1, it2);
+                        while(it1!=it2){
+                        	search_list.push_back((uint32_t)(it1-first));
+                        	it1++;
+                        }
                         cout << "Timestamp search: " << search_list.size() << " entries found\n";
                     }
 		            break;
@@ -192,7 +210,7 @@ public:
 			    	transform(begin(cat), end(cat), begin(cat), ::tolower);
 
 					auto it = cat_hash.find(cat);
-			        if(it != cat_hash.end())
+			        if(it != end(cat_hash))
 					    search_list.insert(end(search_list), begin(it->second), end(it->second));
 					cout << "Category search: " << search_list.size() << " entries found\n";
 		            break;
@@ -210,36 +228,31 @@ public:
 					
 					//initial vector of matches, set intersection
 					auto it = mes_hash.find(kws[0]);
-					if (it != end(mes_hash))
+					if (it != end(mes_hash)){
 						search_list.insert(end(search_list), begin(it->second), end(it->second));
-                    vector<int> temp1 = {1,2,3};
-                    vector<int> temp2 = {};
-					for(size_t i = 1; i < kws.size(); i++){
-						if (search_list.empty())
-							break;
-						it = mes_hash.find(kws[i]);
-                        
-						if (it != end(mes_hash)){
-							auto insec = set_intersection(begin(search_list), end(search_list), begin(it->second), end(it->second), begin(search_list), index_func);
-                            search_list.erase(insec, end(search_list));
+                        for(size_t i = 1; i < kws.size(); i++){
+                            it = mes_hash.find(kws[i]);
+                            if (it != end(mes_hash)){
+                                auto insec = set_intersection(begin(search_list), end(search_list), begin(it->second), end(it->second), begin(search_list));
+                                search_list.erase(insec, end(search_list));
+                            }
+                            else{
+                                search_list.erase(begin(search_list), end(search_list));
+                                break;
+                            }
                         }
-						else{
-                            search_list.erase(begin(search_list), end(search_list));
-							break;
-                        }
-					}
-                    
+                    }
 					cout << "Keyword search: " << search_list.size() << " entries found\n";
 		            break;
 		        }
 		        //append log entry
 		        case 'a':{
-		        	int num;
+		        	size_t num;
 					cin >> num;
-					if(num > (int)masterlist.size()-2)
+					if(num >= masterlist.size())
 						cerr << "Invalid append, out of range\n";
                     else{
-                        ex_list.push_back(num);
+                        ex_list.push_back(index_list[num]);
                         cout << "log entry " << num << " appended\n";
                     }
 		            break;
@@ -256,12 +269,12 @@ public:
 		        }
 		        //delete log entry
 		        case 'd':{
-		        	int num;
+		        	size_t num;
 					cin >> num;
-					if(num >= (int)ex_list.size())
+					if(num >= ex_list.size())
 						cerr << "Invalid excerpt list delete, out of range\n";
                     else{
-                        auto it = begin(ex_list) + num;
+                        auto it = begin(ex_list) + (int)num;
                         ex_list.erase(it);
                         cout << "Deleted excerpt list entry " << num << "\n";
                     }
@@ -269,12 +282,12 @@ public:
 		        }
 		        //move to beginning
 		        case 'b':{
-		        	int num;
+		        	size_t num;
 					cin >> num;
-					if(num >= (int)ex_list.size())
+					if(num >= ex_list.size())
 						cerr << "Invalid excerpt list move to beginning, out of range\n";
                     else{
-                        auto it = ex_list.rend()-num-1;
+                        auto it = ex_list.rend()-(int)num-1;
                         rotate(it, it+1, ex_list.rend());
                         cout << "Moved excerpt list entry " << num << "\n";
                     }
@@ -282,12 +295,12 @@ public:
 		        }
 		        //move to end
 		        case 'e':{
-		        	int num;
+		        	size_t num;
 					cin >> num;
-					if(num >= (int)ex_list.size())
+					if(num >= ex_list.size())
 						cerr << "Invalid excerpt list move to end, out of range\n";
                     else{
-                        auto it = begin(ex_list)+num;
+                        auto it = begin(ex_list)+(int)num;
                         rotate(it, it + 1, ex_list.end());
                         cout << "Moved excerpt list entry " << num << "\n";
                     }
@@ -301,19 +314,19 @@ public:
 					else{
 						cout << "previous ordering:\n";
 						cout << 0 << "|";
-						print_logf((size_t)ex_list[0]);
+						print_logf(ex_list[0]);
 						cout << "...\n";
 						cout << ex_list.size()-1 << "|";
-						print_logf((size_t)ex_list[ex_list.size()-1]);
+						print_logf(ex_list[ex_list.size()-1]);
 
-						sort(begin(ex_list), end(ex_list), index_func);
+						sort(begin(ex_list), end(ex_list));
 
 						cout << "new ordering:\n";
 						cout << 0 << "|";
-						print_logf((size_t)ex_list[0]);
+						print_logf(ex_list[0]);
 						cout << "...\n";
 						cout << ex_list.size()-1 << "|";
-						print_logf((size_t)ex_list[ex_list.size()-1]);
+						print_logf(ex_list[ex_list.size()-1]);
 					}
 		            break;
 		        }
@@ -326,10 +339,10 @@ public:
 						cout << "previous contents:\n";
 						
 						cout << 0 << "|";
-						print_logf((size_t)ex_list[0]);
+						print_logf(ex_list[0]);
 						cout << "...\n";
 						cout << ex_list.size()-1 << "|";
-						print_logf((size_t)ex_list[ex_list.size()-1]);
+						print_logf(ex_list[ex_list.size()-1]);
 
 						ex_list.erase(begin(ex_list), end(ex_list));
 					}
@@ -340,16 +353,16 @@ public:
 		        	if (!searched)
 			            cerr << "No previous search\n";
                     else{
-                        for(unsigned int i = 0; i < search_list.size(); i++)
-                            print_logf((size_t)search_list[i]);
+                        for(uint32_t i = 0; i < search_list.size(); i++)
+                            print_logf(search_list[i]);
                     }
 		            break;
 		        }
 		        //print excerpt list
 		        case 'p':{
-		        	for(unsigned int i = 0; i < ex_list.size(); i++){
+		        	for(uint32_t i = 0; i < ex_list.size(); i++){
 						cout << i << "|";
-						print_logf((size_t)ex_list[i]);
+						print_logf(ex_list[i]);
 					}
 		            break;
 		        }
@@ -372,9 +385,9 @@ public:
 
 		}
 	}
-	void print_logf(size_t index){
-        int64_t tmp = masterlist[index].ts;
-		cout << index << "|";
+	void print_logf(uint32_t index){
+        int64_t tmp = ts_list[index];
+		cout << masterlist[index].entryID << "|";
         cout << tmp / 1000000000;
         tmp = tmp % 1000000000;
         cout << tmp / 100000000;
@@ -397,7 +410,7 @@ public:
         cout << ":";
         cout << tmp / 10;
         tmp = tmp % 10;
-        cout << tmp / 1;
+        cout << tmp;
         cout << "|" << masterlist[index].cat << "|" << masterlist[index].message << "\n";
 	}
 
